@@ -18,6 +18,6 @@ jobs:
       with:
         java-version: 17
     - name: Compile microservices with Maven
-      run: cd microservice-spring-demo && mvn -B package 
-    - name: Create Docker images 
-      run: cd microservice-dapr-demo && docker-compose build
+      run: cd microservice-spring-demo && mvn -B package
+    - name: Create Docker images
+      run: cd microservice-spring-demo && docker-compose build
