@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout :: common_head(~{::title})}">
+	<title>Order: View all</title>
+</head>
+
+<body th:replace="~{layout :: common_body(~{::h1},~{::#content})}">
+	<h1>Order: View all</h1>
+	<div id="content" class="container">
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<td>ID</td>
+					<td>Customer</td>
+					<td>Total Price</td>
+					<td></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${orders.empty}">
+					<td colspan="4">No orders</td>
+				</tr>
+				<tr th:each="order : ${orders}">
+					<td><a href="order/1" th:href="${order.id}" th:text="${order.id}">1</a></td>
+					<td th:text="${order?.customer?.firstname} + ' ' + ${order?.customer?.name}">Firstname
+						Name</td>
+					<td th:text="${order.totalPrice()}">42.0</td>
+					<td>
+						<form th:action="'/order/'+${order.id}" th:method="delete">
+							<input type="submit" value="delete" class="btn btn-link" />
+						</form>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="row">
+			<div class="col-md-4">
+				<a href="form.html">Add Order</a>
+			</div>
+			<div class="col-md-4">
+				<a href="feed">Feed</a>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

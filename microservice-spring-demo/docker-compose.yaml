@@ -1,0 +1,65 @@
+version: '3.4'
+
+services:
+  postgres:
+    image: spring-microservices/postgres
+    container_name: spring-postgres
+    ports:
+      - "5432:5432"
+    build:
+      context: ./postgres
+      dockerfile: Dockerfile
+    environment:
+      POSTGRES_USER: dbuser
+      POSTGRES_PASSWORD: dbpass
+  order:
+    image: spring-microservices/order
+    container_name: spring-order
+    ports:
+      - "8081:8080"
+    links:
+      - postgres
+      - zipkin
+    build:
+      context: ./microservice-spring-order
+      dockerfile: Dockerfile
+  shipping:
+    image: spring-microservices/shipping
+    container_name: spring-shipping
+    ports:
+      - "8083:8080"
+    links:
+      - postgres
+      - order
+      - zipkin
+    build:
+      context: ./microservice-spring-shipping
+      dockerfile: Dockerfile
+  invoicing:
+    image: spring-microservices/invoicing
+    container_name: spring-invoicing
+    ports:
+      - "8082:8080"
+    links:
+      - postgres
+      - order
+      - zipkin
+    build:
+      context: ./microservice-spring-invoicing
+      dockerfile: Dockerfile
+  prometheus:
+    image: spring-microservices/prometheus
+    container_name: spring-prometheus
+    ports:
+      - "9090:9090"
+    links:
+      - order
+      - invoicing
+      - shipping
+    build:
+      context: ./prometheus
+      dockerfile: Dockerfile
+  zipkin:
+    image: openzipkin/zipkin:2.24
+    ports:
+      - 9412:9411

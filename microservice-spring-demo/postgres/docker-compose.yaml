@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  db:
+    image: spring-microservices/postgres
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      POSTGRES_USER: dbuser
+      POSTGRES_PASSWORD: dbpass

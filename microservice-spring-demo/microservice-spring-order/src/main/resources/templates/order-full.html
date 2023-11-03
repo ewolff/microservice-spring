@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout :: common_head(~{::title})}">
+	<title>Order Full Information</title>
+</head>
+
+<body th:replace="~{layout :: common_body(~{::#header},~{::#content})}">
+	<h1 id="header">Order Full Information</h1>
+	<div id="content" class="container">
+
+		<div class="row">
+			<div class="col-md-2"><b>Customer</b></div>
+			<div class="col-md-2" th:text="${order.customer.firstname}+' '+${order.customer.name}"></div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-2"><b>Total price</b></div>
+			<div class="col-md-2" th:text="${order.totalPrice()}"></div>
+		</div>
+
+		<div class="row">
+			<h2>Shipping Address</h2>
+		</div>
+
+		<div class="row">
+			<div class="col-md-2"><b>Street</b></div>
+			<div class="col-md-2" th:text="${order.shippingAddress.street}"></div>
+		</div>
+		<div class="row">
+			<div class="col-md-2"><b>Zip</b></div>
+			<div class="col-md-2" th:text="${order.shippingAddress.zip}"></div>
+		</div>
+		<div class="row">
+			<div class="col-md-2"><b>City</b></div>
+			<div class="col-md-2" th:text="${order.shippingAddress.city}"></div>
+		</div>
+
+		<div class="row">
+			<h2>Billing Address</h2>
+		</div>
+
+		<div class="row">
+			<div class="col-md-2"><b>Street</b></div>
+			<div class="col-md-2" th:text="${order.billingAddress.street}"></div>
+		</div>
+		<div class="row">
+			<div class="col-md-2"><b>Zip</b></div>
+			<div class="col-md-2" th:text="${order.billingAddress.zip}"></div>
+		</div>
+		<div class="row">
+			<div class="col-md-2"><b>City</b></div>
+			<div class="col-md-2" th:text="${order.billingAddress.city}"></div>
+		</div>
+
+		<div class="row">
+			<h2>Order Lines</h2>
+		</div>
+
+		<div class="row">
+			<div class="col-md-2"><b>Quantity</b></div>
+			<div class="col-md-2"><b>Item</b></div>
+			<div class="col-md-2"><b>Price</b></div>
+		</div>
+
+		<div class="row" th:each="orderLine : ${order.orderLine}">
+			<div class="col-md-2" th:text="${orderLine.count}"></div>
+			<div class="col-md-2" th:text="${orderLine.item.name}"></div>
+			<div class="col-md-2" th:text="${orderLine.item.price}"></div>
+		</div>
+
+		<hr />
+
+		<div class="row">
+			<h1>Invoicing</h1>
+		</div>
+
+		<div class="row">
+			<a href="/invoicing/42" class="embeddable" th:href="'/invoicing/'+${order.id}">Invoicing</a>
+		</div>
+
+		<hr />
+
+		<div class="row">
+			<h1>Shipping</h1>
+		</div>
+
+		<div class="row">
+			<a href="/shipping/42" class="embeddable" th:href="'/shipping/'+${order.id}">Shipping</a>
+		</div>
+
+		<script>
+			const embeddableLinks = document.querySelectorAll('a.embeddable');
+			embeddableLinks.forEach(async (link) => {
+				const response = await fetch(link.href);
+				const content = await response.text();
+				const contentElement = document.createElement('div');
+				contentElement.innerHTML = content;
+				link.parentNode.replaceChild(contentElement.querySelector('div.snippet'), link);
+			});
+		</script>
+
+	</div>
+
+</body>
+
+</html>

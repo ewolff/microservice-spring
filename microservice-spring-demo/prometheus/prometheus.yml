@@ -1,0 +1,16 @@
+global:
+  scrape_interval:     5s
+
+scrape_configs:
+  - job_name: 'order'
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ['order:8080']
+  - job_name: 'invoicing'
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ['invoicing:8080']
+  - job_name: 'shipping'
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ['shipping:8080']

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout :: common_head(~{::title})}">
+	<title>Success</title>
+</head>
+
+<body th:replace="~{layout :: common_body(~{::h1},~{::#content})}">
+	<h1>Success</h1>
+	<div id="content" class="container">
+		Action was successful!
+	</div>
+</body>
+
+</html>
