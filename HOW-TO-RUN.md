@@ -109,3 +109,30 @@ Starting spring-prometheus                 ... done
 
 * Open [http://localhost:9090](http://localhost:9090) to access
   Prometheus.
+
+## Metric with Grafana
+
+Grafana provides Dashboards for the metrics stored in Prometheus.
+
+* Open Grafana at [http://localhost:3000/](http://localhost:3000/).
+* Log in with user account `admin` and password `admin`.
+* Configure Prometheus as a datasource
+  * Toggle the menu with the three bars at the top left
+  * Select `Connections`
+  * Select `Add new connection`
+  * Select `Prometheus`
+  * Click on `Add new data source` at the top right.
+  * Select`Prometheus` as the `Name`
+  * `Default` should be on.
+  * The `Prometheus server URL` will be `http://prometheus:9090`
+  * Select `Skip TLS Verify`.
+  * Click `Save & Test` to make sure the connection works.
+* You can import Grafana dashboards.
+  * Go to the [Grafana home page](http://localhost:3000).
+  * Click on `Dashboards`
+  * Click on `New` at the to right.
+  * Click on `Import`
+  * Click on `Upload dashboard JSON file`
+  * Select the JSON file `Spring Microservices Overview Dashboard.json` from this repo.
+* You can now access the dashboards from Home - Dashboard.
+* Add some load using `./load.sh "-X POST http://localhost:8082/poll" &`
