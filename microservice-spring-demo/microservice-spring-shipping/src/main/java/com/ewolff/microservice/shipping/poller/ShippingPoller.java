@@ -19,6 +19,8 @@ import org.thymeleaf.util.DateUtils;
 import com.ewolff.microservice.shipping.Shipment;
 import com.ewolff.microservice.shipping.ShipmentService;
 
+import io.github.resilience4j.retry.annotation.Retry;
+
 @Component
 public class ShippingPoller {
 
@@ -44,6 +46,7 @@ public class ShippingPoller {
 	}
 
 	@Scheduled(fixedDelay = 30000)
+	@Retry(name = "poller")
 	public void poll() {
 		if (pollingActivated) {
 			pollInternal();
@@ -64,8 +67,7 @@ public class ShippingPoller {
 			OrderFeed feed = response.getBody();
 			for (OrderFeedEntry entry : feed.getOrders()) {
 				if ((lastModified == null) || (entry.getUpdated().after(Date.from(lastModified.toInstant())))) {
-					Shipment shipping = restTemplate
-							.getForEntity(entry.getLink(), Shipment.class).getBody();
+					Shipment shipping = restTemplate.getForEntity(entry.getLink(), Shipment.class).getBody();
 					log.trace("saving shipping {}", shipping.getId());
 					shipmentService.ship(shipping);
 				}

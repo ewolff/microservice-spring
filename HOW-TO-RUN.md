@@ -136,3 +136,20 @@ Grafana provides Dashboards for the metrics stored in Prometheus.
   * Select the JSON file `Spring Microservices Overview Dashboard.json` from this repo.
 * You can now access the dashboards from Home - Dashboard.
 * Add some load using `./load.sh "-X POST http://localhost:8082/poll" &`
+
+## Resilience with resilience4j
+
+* Start the system with `docker-compose -f fail.yaml up`.
+* With this configuration, half of the HTTP request to the order
+  microservice will fail. Go to
+  [http://localhost:8081/](http://localhost:8081/)and reload the page
+  a few times to see that the HTTP request really fails. The log
+  output also shows that some of the calls fail.
+* Now poll for new orders from the shipping or invoicing
+  applications. Notice how the order application still fails randomly
+  but the polling never fails. This is because of the retry in the
+  poller. The source code actually contains a `@Retry` annotation.
+* resilience4j provides more features e.g. bulkhead, circuit breaker,
+  rate limiter or time limiter i.e. timeouts. See
+  [https://github.com/resilience4j/resilience4j-spring-boot3-demo/](https://github.com/resilience4j/resilience4j-spring-boot3-demo/)
+  for a demo of these features.

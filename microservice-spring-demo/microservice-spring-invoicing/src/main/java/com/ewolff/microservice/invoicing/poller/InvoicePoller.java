@@ -18,6 +18,8 @@ import org.springframework.web.client.RestTemplate;
 import com.ewolff.microservice.invoicing.Invoice;
 import com.ewolff.microservice.invoicing.InvoiceService;
 
+import io.github.resilience4j.retry.annotation.Retry;
+
 @Component
 public class InvoicePoller {
 
@@ -43,6 +45,7 @@ public class InvoicePoller {
 	}
 
 	@Scheduled(fixedDelay = 30000)
+	@Retry(name = "poller")
 	public void poll() {
 		if (pollingActivated) {
 			pollInternal();

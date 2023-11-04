@@ -1,0 +1,12 @@
+resilience4j.retry:
+    configs:
+        default:
+            maxAttempts: 3
+            waitDuration: 100
+            retryExceptions:
+                - org.springframework.web.client.HttpServerErrorException
+                - java.util.concurrent.TimeoutException
+                - java.io.IOException
+    instances:
+        poller:
+            baseConfig: default
