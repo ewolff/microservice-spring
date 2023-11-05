@@ -135,14 +135,14 @@ Grafana provides Dashboards for the metrics stored in Prometheus.
   * Click on `Upload dashboard JSON file`
   * Select the JSON file `Spring Microservices Overview Dashboard.json` from this repo.
 * You can now access the dashboards from Home - Dashboard.
-* Add some load using `./load.sh "-X POST http://localhost:8082/poll" &`
+* Add some load using `./load.sh "-X POST http://localhost:18082/poll" &`
 
 ## Resilience with resilience4j
 
 * Start the system with `docker-compose -f fail.yaml up`.
 * With this configuration, half of the HTTP request to the order
   microservice will fail. Go to
-  [http://localhost:8081/](http://localhost:8081/)and reload the page
+  [http://localhost:18081/](http://localhost:18081/)and reload the page
   a few times to see that the HTTP request really fails. The log
   output also shows that some of the calls fail.
 * Now poll for new orders from the shipping or invoicing
