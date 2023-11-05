@@ -12,7 +12,7 @@ services:
     environment:
       POSTGRES_USER: dbuser
       POSTGRES_PASSWORD: dbpass
-  order:
+  spring-order:
     image: spring-microservices/order
     container_name: spring-order
     ports:
@@ -23,26 +23,26 @@ services:
     build:
       context: ./microservice-spring-order
       dockerfile: Dockerfile
-  shipping:
+  spring-shipping:
     image: spring-microservices/shipping
     container_name: spring-shipping
     ports:
       - "18083:8080"
     links:
       - postgres-spring
-      - order
+      - spring-order
       - zipkin
     build:
       context: ./microservice-spring-shipping
       dockerfile: Dockerfile
-  invoicing:
+  spring-invoicing:
     image: spring-microservices/invoicing
     container_name: spring-invoicing
     ports:
       - "18082:8080"
     links:
       - postgres-spring
-      - order
+      - spring-order
       - zipkin
     build:
       context: ./microservice-spring-invoicing
@@ -53,9 +53,9 @@ services:
     ports:
       - "9090:9090"
     links:
-      - order
-      - invoicing
-      - shipping
+      - spring-order
+      - spring-invoicing
+      - spring-shipping
     build:
       context: ./prometheus
       dockerfile: Dockerfile
