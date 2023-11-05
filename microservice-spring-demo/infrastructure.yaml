@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: postgres-spring
+    version: "1.0"
+  name: postgres-spring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-spring
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: postgres-spring
+    spec:
+      containers:
+      - name: postgres-spring
+        image: microservice-spring-postgres:1        
+        imagePullPolicy: Never        
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_USER
+          value: "dbuser"
+        - name: POSTGRES_PASSWORD
+          value: "dbpass"
+        resources: {}
+        volumeMounts:
+        - name: postgres-spring
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: postgres-spring
+        emptyDir: {}
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: postgres-spring
+  name: postgres-spring
+spec:
+  ports:
+  - port: 5432
+    protocol: TCP
+    targetPort: 5432
+  selector:
+    app: postgres-spring
+  type: NodePort
+status:
+  loadBalancer: {}

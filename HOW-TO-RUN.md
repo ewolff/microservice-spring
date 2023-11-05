@@ -153,3 +153,14 @@ Grafana provides Dashboards for the metrics stored in Prometheus.
   rate limiter or time limiter i.e. timeouts. See
   [https://github.com/resilience4j/resilience4j-spring-boot3-demo/](https://github.com/resilience4j/resilience4j-spring-boot3-demo/)
   for a demo of these features.
+
+## Run on Kubernetes
+
+### Build containers locally
+
+* Build the containers using `docker-build.sh`.
+* Deploy the infrastructure using `kubectl apply -f
+  infrastructure.yaml`
+* Deploy the microservices using `kubectl apply -f microservices.yaml`
+* Start the service proxies using `service-proxy.sh`.
+* Open `index.html`. It contains links to the web applications.

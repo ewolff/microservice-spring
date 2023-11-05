@@ -1,0 +1,155 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: spring-invoicing
+    version: "1.0"
+  name: spring-invoicing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-invoicing
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: spring-invoicing
+    spec:
+      containers:
+      - name: spring-invoicing
+        image: microservice-spring-invoicing:1
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+        resources: {}
+status: {}
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: spring-shipping
+    version: "1.0"
+  name: spring-shipping
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-shipping
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: spring-shipping
+    spec:
+      containers:
+      - name: spring-shipping
+        image: microservice-spring-shipping:1
+        imagePullPolicy: Never        
+        ports:
+        - containerPort: 8080
+        resources: {}
+status: {}
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: spring-order    
+    version: "1.0"
+  name: spring-order
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-order
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: spring-order
+    spec:
+      containers:
+      - name: spring-order
+        image: microservice-spring-order:1
+        imagePullPolicy: Never        
+        ports:
+        - containerPort: 8080
+        resources: {}
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: spring-invoicing
+  name: spring-invoicing
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+    name: http    
+  selector:
+    app: spring-invoicing
+  type: NodePort
+status:
+  loadBalancer: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: spring-shipping
+  name: spring-shipping
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+    name: http    
+  selector:
+    app: spring-shipping
+  type: NodePort
+status:
+  loadBalancer: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: spring-order
+    visualize: "true"
+  name: spring-order
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+    name: http    
+  selector:
+    app: spring-order
+  type: NodePort
+status:
+  loadBalancer: {}
+
