@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-  postgres:
+  postgres-spring:
     image: spring-microservices/postgres
     container_name: spring-postgres
     ports:
@@ -18,7 +18,7 @@ services:
     ports:
       - "8081:8080"
     links:
-      - postgres
+      - postgres-spring
       - zipkin
     build:
       context: ./microservice-spring-order
@@ -29,7 +29,7 @@ services:
     ports:
       - "8083:8080"
     links:
-      - postgres
+      - postgres-spring
       - order
       - zipkin
     build:
@@ -41,7 +41,7 @@ services:
     ports:
       - "8082:8080"
     links:
-      - postgres
+      - postgres-spring
       - order
       - zipkin
     build:
