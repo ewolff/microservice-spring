@@ -139,14 +139,19 @@ Grafana provides Dashboards for the metrics stored in Prometheus.
 
 ## Resilience with resilience4j
 
+* You might need to remove the previous demo with `docker-compose
+  down`. Otherwise there are e.g. naming conflicts for containers.
 * Start the system with `docker-compose -f fail.yaml up`.
 * With this configuration, half of the HTTP request to the order
   microservice will fail. Go to
-  [http://localhost:18081/](http://localhost:18081/)and reload the page
+  [http://localhost:18081/](http://localhost:18081/) and reload the
+  page 
   a few times to see that the HTTP request really fails. The log
   output also shows that some of the calls fail.
 * Now poll for new orders from the shipping or invoicing
-  applications. Notice how the order application still fails randomly
+  applications at [http://localhost:18082/](http://localhost:18082/)
+  and [http://localhost:18083/](http://localhost:18083/). Notice how
+  the order application still fails randomly 
   but the polling never fails. This is because of the retry in the
   poller. The source code actually contains a `@Retry` annotation.
 * resilience4j provides more features e.g. bulkhead, circuit breaker,
