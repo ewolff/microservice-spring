@@ -22,7 +22,7 @@ See [How to run](HOW-TO-RUN.md).
 Video
 --------
 
-Check out the workshop [Microservices with Spring](https://www.youtube.com/watch?v=9q2Qlp0IDZY) (German with auto-translated subtitles in your preferred language).
+Check out the video [Microservices with Spring](https://www.youtube.com/watch?v=9q2Qlp0IDZY) (German with auto-translated subtitles in your preferred language).
 
 
 Remarks on the Code
