@@ -19,11 +19,13 @@ How to run
 See [How to run](HOW-TO-RUN.md).
 
 
-Video
+Video / Podcast
 --------
 
 Check out the video [Microservices with Spring](https://www.youtube.com/watch?v=9q2Qlp0IDZY) (German with auto-translated subtitles in your preferred language).
-
+Other formats including a Podcast are available at [Software
+Architektur im
+Stream](https://software-architektur.tv/2023/12/01/folge190.html).
 
 Remarks on the Code
 -------------------
