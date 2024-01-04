@@ -48,15 +48,3 @@ only the information needed for the shipment and the invoice are
 copied over to the other systems.
 
 The job to poll the order feed is run every 30 seconds.
-
-
-Shutdown Kubernetes
--------------------
-
-You can shut down the Kubernetes infrastructure and microservices using:
-
-```shell
-kubectl delete -f microservices.yaml  
-kubectl delete -f infrastructure.yaml 
-```
-

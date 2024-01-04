@@ -169,3 +169,13 @@ Grafana provides Dashboards for the metrics stored in Prometheus.
 * Deploy the microservices using `kubectl apply -f microservices.yaml`
 * Start the service proxies using `service-proxy.sh`.
 * Open `index.html`. It contains links to the web applications.
+
+### Cleanup
+-------------------
+
+You can remove the infrastructure and microservices using:
+
+```shell
+kubectl delete -f microservices.yaml
+kubectl delete -f infrastructure.yaml 
+```
