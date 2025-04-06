@@ -60,12 +60,12 @@ services:
       context: ./prometheus
       dockerfile: Dockerfile
   grafana:
-    image: 'grafana/grafana:10.2.0'
+    image: 'docker.io/grafana/grafana:10.2.0'
     links:
       - prometheus
     ports:
       - '3000:3000'
   zipkin:
-    image: openzipkin/zipkin:2.24
+    image: docker.io/openzipkin/zipkin:2.24
     ports:
       - 9412:9411
